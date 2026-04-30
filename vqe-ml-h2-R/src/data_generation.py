@@ -1,14 +1,23 @@
 import numpy as np
 from hamiltonian import generate_hamiltonian
 from vqe import vqe
+import os
 
-bond_lengths = np.linspace(0.4, 2.0, 20)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+
+os.makedirs(DATA_DIR, exist_ok=True)  # create if missing
+
+SAVE_PATH = os.path.join(DATA_DIR, "vqe_dataset.csv")
+
+bond_lengths = np.linspace(0.4, 2.0, 100)
 
 dataset = []
 
 for R in bond_lengths:
 
     H = generate_hamiltonian(R)
+    print("R is :", R)
 
     result = vqe.compute_minimum_eigenvalue(H)
 
@@ -34,4 +43,4 @@ for d in dataset:
     rows.append(row)
 
 df = pd.DataFrame(rows)
-df.to_csv("vqe_dataset.csv", index=False)
+df.to_csv(SAVE_PATH)

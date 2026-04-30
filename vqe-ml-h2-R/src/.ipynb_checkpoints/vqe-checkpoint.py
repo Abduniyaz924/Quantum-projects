@@ -20,6 +20,6 @@ vqe = VQE(
 )
 
 #result = vqe.compute_minimum_eigenvalue(H)
-
+print(ansatz.num_parameters)
 #print(result.eigenvalue)
 #print(result.optimal_point)
